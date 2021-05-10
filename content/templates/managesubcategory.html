@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <title>{{titles}}</title>
+    {% include 'header.html' %}
+</head>
+
+<body>
+
+    <div class="theme-loader">
+        <div class="ball-scale">
+            <div></div>
+        </div>
+    </div>
+
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            {% include 'headertab.html' %}           
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    {% include 'sidebar.html' %}
+                    <!-- {% block body %} {% endblock %} -->
+                    <div class="pcoded-content">
+                        <div class="pcoded-inner-content">
+
+                            <div class="main-body">
+                                <div class="page-wrapper">
+
+                                    <div class="page-header">
+                                        <div class="page-header-title">
+                                            <h4>Basic DataTables</h4>
+                                            <span>Basic initialisation of DataTables</span>
+                                        </div>
+                                        <div class="page-header-breadcrumb">
+                                            <ul class="breadcrumb-title">
+                                                <li class="breadcrumb-item">
+                                                    <a href="index-2.html">
+                                                        <i class="icofont icofont-home"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="breadcrumb-item"><a href="#!">Data Table</a>
+                                                </li>
+                                                <li class="breadcrumb-item"><a href="#!">Basic Initialization</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Alternative Pagination</h5>
+                                                        <div class="card-header-right">
+                                                            <i class="icofont icofont-rounded-down"></i>
+                                                            <i class="icofont icofont-refresh"></i>
+                                                            <i class="icofont icofont-close-circled"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <div class="dt-responsive table-responsive">
+                                                            <table id="alt-pg-dt"
+                                                                class="table table-striped table-bordered nowrap">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Id</th>
+                                                                        <th>SubCategory</th>
+                                                                        <th>Image</th>
+                                                                        <th>Status</th>
+                                                                        <th>Edit</th>
+                                                                        <th>Delete</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {% for i in subcategory %}
+                                                                    <tr>
+                                                                        <td>{{ i.id }}</td>
+                                                                        <td>{{ i.name }}</td>
+                                                                        <td><img src="/media/{{i.image}}" class="img-90" alt="user.png"></td>
+                                                                        <td>{{ i.status }}</td>
+                                                                        <td><a href="" class="btn btn-info">Edit</a></td>
+                                                                        <td><a href="{% url 'deletesubcategory' i.id %}" class="btn btn-danger">Delete</a></td>
+                                                                    </tr>
+                                                                    {% endfor %}
+                                                                </tbody>
+                                                                <tfoot>
+                                                                    <tr>
+                                                                        <th>Id</th>
+                                                                        <th>SubCategory</th>
+                                                                        <th>Image</th>
+                                                                        <th>Status</th>
+                                                                        <th>Edit</th>
+                                                                        <th>Delete</th>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div id="styleSelector">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+    <script>
+        {% for msg in messages %}
+            swal("Successfull!", "{{msg}}", "success");
+        {% endfor %}
+    </script>
+    <!--end js-->
+</body>
+
+</html>

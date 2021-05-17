@@ -1,0 +1,78 @@
+   <script>
+   // submit Data -------------------------------
+
+         $('#submitbtn').click(function(){
+             const nm = $("#nameid").val();
+             const img = $("#imageid").val();
+             const originalimage = document.getElementById('imageid').files[0].name;
+
+             const csr = $("input[name=csrfmiddlewaretoken]").val();
+             if(nm == ""){
+                 console.log("Please Enter Name")
+             }else if(img == ""){
+                 console.log("Please Enter Image")
+             }else{
+                 const mydata = {
+                     name:nm,
+                     image:originalimage,
+                     csrfmiddlewaretoken:csr
+                 };
+                  console.log(mydata)
+                 $.ajax({
+                     type:"POST",
+                     url:"{% url 'saveCat' %}",
+                     data:mydata,
+                     success:function(data){
+                         console.log(data)
+                     }
+                 })
+             }
+         })
+
+
+// delete Data ------------------------------------------------
+
+            $('tbody').on( "click", ".btn-del", function(){
+             const CatId = $(this).attr('data-cid')
+             const csr = $("input[name=csrfmiddlewaretoken]").val();
+
+            const mydata = {
+                catagoryID:CatId,
+                csrfmiddlewaretoken:csr
+            };
+            mythis = this ;
+                 swal({
+                        title: "Are you sure?",
+                        text: "Once deleted, you will not be able to recover this imaginary file!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                        if (willDelete) {
+                            console.log(mydata)
+                            $.ajax({
+                                type:"POST",
+                                url:"{% url 'deletecategory' %}",
+                                data:mydata,
+                                success:function(data){
+                                    if(data.status == 1){
+                                    $(mythis).closest("tr").fadeOut();
+                                    swal("Poof! Your imaginary Data has been deleted!", {
+                                        icon: "success",
+                                    });
+                                    }
+                                    if(data.status == 0){
+                                    swal("Oops Unabel to deleted!", {
+                                        icon: "warning",
+                                    });
+                                    }
+                                }
+                            })
+                        } else {
+                        swal("Your imaginary file is safe!");
+                        }
+                    });
+         })
+
+</script>

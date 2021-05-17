@@ -64,10 +64,10 @@
                                                     </div>
                                                     <div class="card-block">
                                                         <h4 class="sub-title">ADD CATEGORY</h4>
-                                                        <form action="" method="POST" enctype="multipart/form-data">
+                                                        <form  id="cat_form" method="POST" enctype="multipart/form-data" >
                                                             {% csrf_token %}
                                                             {{ form.media }}
-                                                            {{ form.as_p }}
+                                                            {% comment %} {{ form.as_p }} {% endcomment %}
                                                             <div class="form-group row">
                                                                 <label
                                                                     class="col-sm-2 col-form-label">Category Name</label>
@@ -76,67 +76,32 @@
                                                                         placeholder="Type your Category Name"
                                                                         name="category"
                                                                     >
+                                                                    {% comment %} {{form.name}} {% endcomment %}
                                                                 </div>
                                                             </div>
-                                                            <!-- <div class="form-group row">
-                                                                <label class="col-sm-2 col-form-label">Read only</label>
-                                                                <div class="col-sm-10">
-                                                                    <input type="text" class="form-control"
-                                                                        placeholder="You can't change me" readonly>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-2 col-form-label">Disable
-                                                                    Input</label>
-                                                                <div class="col-sm-10">
-                                                                    <input type="text" class="form-control"
-                                                                        placeholder="Disabled text" disabled>
-                                                                </div>
-                                                            </div> -->
-
-                                                            <!-- <div class="form-group row">
-                                                                <label class="col-sm-2 col-form-label">Select
-                                                                    Box</label>
-                                                                <div class="col-sm-10">
-                                                                    <select name="select" class="form-control">
-                                                                        <option value="opt1">Select One Value Only
-                                                                        </option>
-                                                                        <option value="opt2">Type 2</option>
-                                                                        <option value="opt3">Type 3</option>
-                                                                        <option value="opt4">Type 4</option>
-                                                                        <option value="opt5">Type 5</option>
-                                                                        <option value="opt6">Type 6</option>
-                                                                        <option value="opt7">Type 7</option>
-                                                                        <option value="opt8">Type 8</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div> -->
-
-                                                            <!-- <div class="form-group row">
-                                                                <label class="col-sm-2 col-form-label">Color</label>
-                                                                <div class="col-sm-10">
-                                                                    <input type="color" class="form-control">
-                                                                </div>
-                                                            </div> -->
                                                             <div class="form-group row">
                                                                 <label class="col-sm-2 col-form-label">Category
                                                                     Image</label>
-                                                                <div class="col-sm-10">
-                                                                    <input type="file" class="form-control" name="image">
+                                                                <div class="col-sm-6">
+                                                                    <input type="file" class="form-control" 
+                                                                    id="imageid"
+                                                                    onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])" 
+                                                                    name="image"
+                                                                    >
+                                                                    
                                                                 </div>
+                                                                <div class="col-sm-4">
+                                                                    <img src="https://falkirk.falkirkcommunitytrust.org/media/3422/you-choose-landscape.jpeg" 
+                                                                    id="image" width="100" height="200" 
+                                                                    class="form-control">
+                                                                </div>
+                                                                
                                                             </div>
-                                                            <!-- <div class="form-group row">
-                                                                <label class="col-sm-2 col-form-label">Textarea</label>
-                                                                <div class="col-sm-10">
-                                                                    <textarea rows="5" cols="5" class="form-control"
-                                                                        placeholder="Default textarea"></textarea>
-                                                                </div>
-                                                            </div> -->
                                                             <div class="form-group row">
                                                             <label class="col-sm-2 col-form-label"></label>
                                                             <div class="col-sm-10"  >
-                                                                <button type="submit" class="btn btn-primary btn-md waves-effect waves-light" >
-                                                                    Submit
+                                                                <button type="submit"  id="submitbtn" class="btn btn-primary" >
+                                                                    SAVE
                                                                 </button>
                                                             </div>
                                                             </div>
@@ -159,6 +124,7 @@
         </div>
     </div>
     {% include 'footer.html' %}
+    {% include 'Ajax/ajax.html' %}
     <script>
         {% for msg in messages %}
             swal("Successfull!", "{{msg}}", "success");

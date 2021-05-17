@@ -77,18 +77,29 @@
                                                                         <th>Delete</th>
                                                                     </tr>
                                                                 </thead>
-                                                                <tbody>
-                                                                    {% for i in category %}
+                                                                <form type="POST">
+                                                                {% csrf_token %}
+                                                                <tbody  >                                                                   
+                                                                    {% for i in category %}                                                                                                                                    
                                                                     <tr>
                                                                         <td>{{ i.id }}</td>
                                                                         <td>{{ i.name }}</td>
                                                                         <td><img src="/media/{{i.image}}" class="img-90" alt="user.png"></td>
                                                                         <td>{{ i.status }}</td>
-                                                                        <td><a href="{% url 'getcategory' i.id %}" class="btn btn-info">Edit</a></td>
-                                                                        <td><a href="{% url 'deletecategory' i.id %}" class="btn btn-danger">Delete</a></td>
+                                                                        <td>
+                                                                            <a href="{% url 'getcategory' i.id %}" data-cid="{{i.id}}" >
+                                                                                <i class="fa fa-edit fa-2x"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                        <td>
+                                                                            <button class="btn-del" id="delete-cat" data-cid="{{i.id}}">
+                                                                                <i  class="fa fa-trash-o fa-2x"></i>
+                                                                            </button>
+                                                                        </td>
                                                                     </tr>
                                                                     {% endfor %}
                                                                 </tbody>
+                                                                <form>
                                                                 <tfoot>
                                                                     <tr>
                                                                         <th>Id</th>
@@ -121,11 +132,13 @@
     </div>
 
     {% include 'footer.html' %}
-    <script>
+    {% include 'Ajax/ajax.html' %}
+    {% comment %} <script>
         {% for msg in messages %}
             swal("Successfull!", "{{msg}}", "success");
         {% endfor %}
-    </script>
+    </script> {% endcomment %}
+
     <!--end js-->
 </body>
 
